@@ -104,7 +104,7 @@ class TBConfig(StrictDataClass):
     do_sample_p_b: bool = False
     do_length_normalize: bool = False
     subtb_max_len: int = 128
-    Z_learning_rate: float = 1e-1 #Making the learning rate a bit bigger
+    Z_learning_rate: float = 1e-6 #Making the learning rate a bit bigger
     Z_lr_decay: float = 50_000
     cum_subtb: bool = True
     loss_fn: LossFN = LossFN.MSE
