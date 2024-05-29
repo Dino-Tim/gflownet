@@ -468,8 +468,8 @@ def _recursive_decompose(ctx, m, all_matches, a2f, frags, bonds, max_depth=9, nu
     if numiters is None:
         numiters = [0]
     numiters[0] += 1
-    # if numiters[0] > 1_000:
-    #     raise ValueError("too many iterations")
+    if numiters[0] > 10000:
+         return None
     if max_depth == 0 or len(a2f) == m.GetNumAtoms():
         # try to make a mol, does it work?
         # Did we match all the atoms?
