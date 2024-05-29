@@ -53,7 +53,7 @@ class FragMolBuildingEnvContext(GraphBuildingEnvContext):
                 self.frags_stems.append(stems[i])
             else:
                 count += 1
-        print("Didn't process" ,count ,"fragments")
+        #print("Didn't process" ,count ,"fragments")
         self.frags_numatm = [m.GetNumAtoms() for m in self.frags_mol]
         self.num_stem_acts = most_stems = max(map(len, self.frags_stems))
         self.action_map = [
