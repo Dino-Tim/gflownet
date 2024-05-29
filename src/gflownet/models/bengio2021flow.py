@@ -31,8 +31,8 @@ NUM_ATOMIC_NUMBERS = 56  # Number of atoms used in the molecules (i.e. up to Ba)
 # These are the fragments used in the original paper, each fragment is a tuple
 # (SMILES string, attachment atom idx).
 # The attachment atom idx is where bonds between fragments are legal.
-FRAGMENTS: list[tuple[str, list[int]]] =['c1ccc(N+[O-])o1',[0]) , 
-                                         ('c1nnc(N)o1',[0])] 
+FRAGMENTS: list[tuple[str, list[int]]] =[('c1nnc(N)o1',[0])
+('c1ccc([N+](=O)[O-])o1',[0])] 
 """
     ("CO", [1, 0]),
     ("O=c1[nH]cnc2[nH]cnc12", [3, 6]),
