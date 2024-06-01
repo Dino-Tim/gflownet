@@ -527,7 +527,8 @@ def _recursive_decompose(ctx, m, all_matches, a2f, frags, bonds, max_depth=9, nu
                     break
             if not is_valid_match:
                 continue
-            
+            print(match)
+            assert(len(match)>0)
             for this_frag_stemidx, i in enumerate([match[s] for s in ctx.frags_stems[fragidx]]):
                 for j in m.GetAtomWithIdx(i).GetNeighbors():
                     j = j.GetIdx()
