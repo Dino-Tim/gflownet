@@ -24,7 +24,7 @@ class FragMolBuildingEnvContext(GraphBuildingEnvContext):
     fragments. Masks ensure that the agent can only perform chemically valid attachments.
     """
 
-    def __init__(self, max_frags: int = 9, num_cond_dim: int = 0, fragments: List[Tuple[str, List[int]]] = None):
+    def __init__(self, max_frags: int = 9, num_cond_dim: int = 0, fragments: List[Tuple[str, List[int]]] = None,check_iter = True):
         """Construct a fragment environment
         Parameters
         ----------
@@ -45,6 +45,7 @@ class FragMolBuildingEnvContext(GraphBuildingEnvContext):
         self.frags_mol = []
         self.frags_stems = []
         self.frags_used = []
+        self.check_iter = check_iter
         count = 0
         for i in range(len(smi)):
             mol = Chem.MolFromSmiles(smi[i])
@@ -474,9 +475,10 @@ class NCounter:
 def _recursive_decompose(ctx, m, all_matches, a2f, frags, bonds, max_depth=9, numiters=None):
     if numiters is None:
         numiters = [0]
-    # numiters[0] += 1
-    # if numiters[0] > 10000:
-    #      return None
+    if(self.check_iter):
+        numiters[0] += 1
+        if numiters[0] > 10000:
+             return None
     if max_depth == 0 or len(a2f) == m.GetNumAtoms():
         # try to make a mol, does it work?
         # Did we match all the atoms?
