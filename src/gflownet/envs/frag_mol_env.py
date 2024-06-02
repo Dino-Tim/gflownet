@@ -44,6 +44,7 @@ class FragMolBuildingEnvContext(GraphBuildingEnvContext):
         self.frags_smi = []
         self.frags_mol = []
         self.frags_stems = []
+        self.frags_used = []
         count = 0
         for i in range(len(smi)):
             mol = Chem.MolFromSmiles(smi[i])
@@ -322,7 +323,7 @@ class FragMolBuildingEnvContext(GraphBuildingEnvContext):
             all_matches[fragidx] = mol.GetSubstructMatches(frag, uniquify=False)
         return _recursive_decompose(self, mol, all_matches, {}, [], [], self.max_frags)
 
-    def graph_to_obj(self, g: Graph) -> Chem.Mol:
+    def graph_to_obj(self, g: Graph,frags_used = []) -> Chem.Mol:
         """Convert a Graph to an RDKit molecule
 
         Parameters
@@ -340,6 +341,7 @@ class FragMolBuildingEnvContext(GraphBuildingEnvContext):
         for i in g.nodes:
             if mol is None:
                 mol = self.frags_mol[g.nodes[i]["v"]]
+                self.frags_used.append(g.nodes[i]["v"])
             else:
                 mol = Chem.CombineMols(mol, self.frags_mol[g.nodes[i]["v"]])
 
@@ -348,6 +350,8 @@ class FragMolBuildingEnvContext(GraphBuildingEnvContext):
         for a, b in g.edges:
             afrag = g.nodes[a]["v"]
             bfrag = g.nodes[b]["v"]
+            self.frags_used.append(afrag)
+            self.frags_used.append(bfrag)
             if self.fail_on_missing_attr:
                 assert "src_attach" in g.edges[(a, b)] and "dst_attach" in g.edges[(a, b)]
             u, v = (
