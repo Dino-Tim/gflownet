@@ -475,7 +475,7 @@ class NCounter:
 def _recursive_decompose(ctx, m, all_matches, a2f, frags, bonds, max_depth=9, numiters=None):
     if numiters is None:
         numiters = [0]
-    if(self.check_iter):
+    if(ctx.check_iter):
         numiters[0] += 1
         if numiters[0] > 10000:
              return None
